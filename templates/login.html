@@ -1,0 +1,61 @@
+{% from "includes/form_helper.html" import displayField %}
+{% extends "authentication_template.html" %}
+{% block title %}Login{% endblock %}
+{% block style %}
+<!-- Font Awesome icons (free version)-->
+<script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+<!-- Google fonts-->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css"/>
+<link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css"/>
+<link href="{{ url_for('static', filename='styles/style.css' ) }}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<!-- Masthead-->
+<header class="masthead">
+    <!-- Masthead Avatar Image-->
+    <img class="masthead-avatar mb-5" src="/static/images/man-1.png" alt=""/>
+    <!-- Masthead Heading-->
+    <h1 class="masthead-heading mb-0">Welcome!</h1>
+    <!-- Icon Divider-->
+    <div class="divider-custom divider-light">
+        <div class="divider-custom-line"></div>
+        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+        <div class="divider-custom-line"></div>
+    </div>
+    <!-- Masthead Subheading-->
+    <p class="masthead-subheading mb-0">Created by Jana Pauwels & Jelle Baele</p>
+</header>
+
+<section class="page-section" id="contact">
+    <div class="container">
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Login</h2>
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <form id="loginForm" action="{{ url_for('login') }}", method="POST">
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                            {{ displayField(form.username, 'form-control', 'Username', autocomplete='off', autofocus=true) }}
+                            {{ displayField(form.avatar, '', '') }}
+                        </div>
+                    </div>
+
+                    <h3 id="header-pick-avatar">Pick an avatar:</h3>
+                    <div class="grid">
+                        {% for image in images %}
+                        <div class="image-container">
+                            <img class="grid-image" src="{{ image }}">
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="submit-button">
+                        {{ form.submit }}
+                    </div>
+                    {{ form.csrf_token }}
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="{{ url_for('static', filename='scripts/Login.js') }}"></script>
+{% endblock %}
